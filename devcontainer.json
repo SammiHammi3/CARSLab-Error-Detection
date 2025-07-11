@@ -1,0 +1,28 @@
+{
+  "name": "ros2-lidar-errors",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-python.python",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "runArgs": [
+    "--shm-size=2g"
+  ],
+  "postCreateCommand": "sudo rosdep init || true && rosdep update && colcon build --symlink-install",
+  "mounts": [
+    "source=${localWorkspaceFolder}/src,target=/workspace/ros2_ws/src,type=bind"
+  ],
+  "remoteUser": "vscode",
+  "workspaceFolder": "/workspace/ros2_ws"
+}
