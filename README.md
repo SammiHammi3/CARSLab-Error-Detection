@@ -6,8 +6,6 @@ It searches for several things:
 2. A large quantity of LiDAR values that are greater than the expected range.
 3. Identical Frames
 4. Too many or too few points
+5. Too high or low of a message-send frequency
 
-There is still much to optimize and implement, so this is not the final product. Things that need to be done still:
-1. Optimize code so that only one For loop runs instead of two per message
-2. Monitor the frequency of messages coming in
-3. Redo the logging priorities for each error
+I have since optimized it to the best of my ability, so it should not be a big processing drain. The biggest processing power goes towards scanning each message (each with over 200,00 points) and finding NaN's, Infs, and values greater than expected.
