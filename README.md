@@ -1,6 +1,6 @@
 # CARSLab-Error-Detection
 
-This is a node for ROS2 (Humble). It subscribes to a topic called /pointcloud for LiDAR and does a rudimentary scan of the values being transmitted from the topic. This code is NOT optimized in any way yet.
+This is a node for ROS2 (Humble). It subscribes to a topic called /pointcloud for LiDAR and does a rudimentary scan of the values being transmitted from the topic.
 It searches for several things:
 1. NaNs and Infs (essentially, non-dense data)
 2. A large quantity of LiDAR values that are greater than the expected range.
