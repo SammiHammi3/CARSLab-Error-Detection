@@ -24,28 +24,26 @@ After detecting an issue, it sends an alert through the topic /LidarLogs in the 
 All the ideal values and thresholds can be changed in the code to fit the specifications of any LiDAR sensor. I did my best to comment anything that's potentially confusing, which should make modification easier.
 
 
-# Guide for running on Windows:
+# Guide for running the node and editing the node on Windows:
 Prerequisites:
   Visual Studio Code
-    Required extension: Dev Containers by Microsoft
-    Recommended extensions: CMake Tools, Pylance, and Python
+    Required extension: Dev Containers
+    Recommended extensions: CMake Tools, Pylance, Python
   Docker Desktop
 
-Step 1: Download the src folder and all its contents, and put it in your own folder on your PC. Alternatively, download the zip and extract it.
-
-
-
-
-Step 2: Download the Dockerfile and devcontainer.json files and put them in a folder named ".devcontainer" on the same level as the src folder.
-Step 3: Make sure the Dockerfile is not a .txt and that it's just a generic file instead
-Step 4: Open Docker Desktop
-Step 5: Open Visual Studio Code and start the high-level folder (the one that has the .devcontainer and src folders in it)
-Step 6: Download the Dev Containers extension if you haven't already
-Step 7: Find the little blue logo in the bottom left corner that looks like a lightning bolt
-Step 8: Select "Reopen in Container"
-Step 9: Sit back and wait for the container to finish constructing
+1. Download the src folder and all its contents, and put it in your own folder on your PC. Alternatively, download the zip and extract it.
+2. Download the Dockerfile and devcontainer.json files and put them in a folder named ".devcontainer" on the same level as the src folder.
+3. Make sure the Dockerfile is not a .txt and that it's just a generic file instead
+4. Open Docker Desktop
+5. Open Visual Studio Code and start the high-level folder (the one that has the .devcontainer and src folders in it)
+6. Download the Dev Containers extension if you haven't already
+7. Find the little blue logo in the bottom left corner that looks like a lightning bolt
+8. Select "Reopen in Container"
+9. Sit back and wait for the container to finish constructing. Warning, it takes a while
 Now, you're at a position where you can run the codes and navigate through the terminal. You can access the terminal with ctrl + ` 
-Step 10: Navigate to the top level (something like workspace/ros2_ws/) and do "colcon build"
+10. Navigate to the top level (something like workspace/ros2_ws/) and do "colcon build"
+
+At this point, you can start running code!
 
 
 You can run the node with Ros2 run lidar_error_checker pointcloud_checker
