@@ -7,3 +7,5 @@ byte FATAL = 4
 byte level
 string error_name
 string description
+
+# Make sure that there are no commas or anything! These are the types of data that each message type will include

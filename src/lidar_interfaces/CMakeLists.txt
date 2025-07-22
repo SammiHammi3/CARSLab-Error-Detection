@@ -10,7 +10,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/LidarAlert.msg"
- )
+  "msg/LidarAlert.msg"                    # These few lines here are the names of the interfaces you're using. Put it in the format "msg/[.msg file name]".
+)                                         # One per line, no commas or anything.
 ament_export_dependencies(rosidl_default_runtime)
 ament_package()
