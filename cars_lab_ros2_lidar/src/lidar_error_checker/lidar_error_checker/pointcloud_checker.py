@@ -65,8 +65,9 @@ class PointCloudChecker(Node):
         # First thing is if the frequency is right. It's the only data we can use even when the message is empty.
         if self.prev_msg_time is not None:
             time_diff = msg_time - self.prev_msg_time
-            frequency = 1 / time_diff if time_diff > 0 else 0
-                
+            missed_messages = round(time_diff * ideal_message_rate) -1 if time_diff > 0 else 0
+            frequency = (1+missed_messages) / time_diff if time_diff > 0 else 0
+
             if abs(frequency-ideal_message_rate) > ideal_message_rate * percent_message_rate_deviation_allowed:
                 self.publisher.publish(LidarAlert(
                 level=b"2", # ERROR level
