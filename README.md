@@ -1,20 +1,47 @@
-# CARSLab-Error-Detection
+# LiDAR Error Detection and Documentation
+For the University of Delaware's CAR Lab
 
-This is a node for ROS2 (Humble). It subscribes to a topic called /pointcloud for LiDAR and does a rudimentary scan of the values being transmitted from the topic. It sends its findings through /LidarLogs.
-It searches for several things:
-1. NaNs and Infs (essentially, non-dense data)
-2. A large quantity of LiDAR values that are greater than the expected range.
-3. Identical Frames
-4. Too many or too few points
-5. Too high or low of a message-send frequency
+This repository iss made for Robot Operating System 2 (ROS2), Humble distro. The custom node subscribes to a topic called /pointcloud, which is used for LiDAR, and does a scan through all the messages being transmitted from that topic. There are two packages in this repository: the listener package named "lidar_error_checker", and the package that creates a custom interface (message) type for the LiDAR error logging named "lidar_interfaces".
 
-I have since optimized it to the best of my ability, so it should not be a big processing drain. The biggest processing power goes towards scanning each message (each with over 200,00 points) and finding NaN's, Infs, and values greater than expected.
+The lidar_error_checker node has the bulk of the code in it. It searches for several things:
+1. Deviations from the ideal frequency of the sensor
+2. Dropped messages
+3. Empty pointclouds
+4. Identical messages
+5. NaNs and Infs
+6. A large quantity of point values greater than the reported maximum range
+7. Too many or too few points per message
 
-The search automatically ends if the frame is identical to the previous one, or if the message is empty.
+After detecting an issue, it sends an alert through the topic /LidarLogs in the following format:
+   Level (byte), Error Name (string), Description (string)
+"Level" refers to the severity of the error.
+0 -- Debug
+1 -- Info
+2 -- Warning
+3 -- Error
+4 -- Fatal
 
-All logs, instead of going to the console, are sent through the topic /LidarLogs   with the format {level:byte, error_name:string, description:string}
-0=DEBUG
-1=INFO
-2=WARN
-3=ERROR
-4=FATAL
+All the ideal values and thresholds can be changed in the code to fit the specifications of any LiDAR sensor. I did my best to comment anything that's potentially confusing, which should make modification easier.
+
+
+# Guide for running on Windows:
+Prerequisites:
+  Visual Studio Code
+    Required extension: Dev Containers by Microsoft
+    Recommended extensions: CMake Tools, Pylance, and Python
+  Docker Desktop
+
+Step 1: Download the src folder and all its contents, and put it in your own folder on your PC. Alternatively, download the zip and extract it.
+Step 2: Download the Dockerfile and devcontainer.json files and put them in a folder named ".devcontainer" on the same level as the src folder.
+Step 3: Make sure the Dockerfile is not a .txt and that it's just a generic file instead
+Step 4: Open Docker Desktop
+Step 5: Open Visual Studio Code and start the high-level folder (the one that has the .devcontainer and src folders in it)
+Step 6: Download the Dev Containers extension if you haven't already
+Step 7: Find the little blue logo in the bottom left corner that looks like a lightning bolt
+Step 8: Select "Reopen in Container"
+Step 9: Sit back and wait for the container to finish constructing
+Now, you're at a position where you can run the codes and navigate through the terminal. You can access the terminal with ctrl + ` 
+Step 10: Navigate to the top level (something like workspace/ros2_ws/) and do "colcon build"
+
+
+You can run the node with Ros2 run lidar_error_checker pointcloud_checker
