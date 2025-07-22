@@ -32,6 +32,10 @@ Prerequisites:
   Docker Desktop
 
 Step 1: Download the src folder and all its contents, and put it in your own folder on your PC. Alternatively, download the zip and extract it.
+
+
+
+
 Step 2: Download the Dockerfile and devcontainer.json files and put them in a folder named ".devcontainer" on the same level as the src folder.
 Step 3: Make sure the Dockerfile is not a .txt and that it's just a generic file instead
 Step 4: Open Docker Desktop
