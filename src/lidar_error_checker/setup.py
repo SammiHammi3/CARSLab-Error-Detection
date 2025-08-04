@@ -21,6 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
             'pointcloud_checker = lidar_error_checker.pointcloud_checker:main',
+            'message_searcher = lidar_error_checker.message_searcher:main',
+
         ],
     },
 )
