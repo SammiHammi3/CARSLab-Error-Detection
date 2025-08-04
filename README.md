@@ -85,3 +85,4 @@ At this point, you can start running code! Below are some helpful commands for d
       ls (to list all directories in the folder you're in)
       ros2 topic echo /lidar_logs
       ros2 topic hz /pointcloud
+Don't forget to   source /opt/ros/humble/setup.bash
