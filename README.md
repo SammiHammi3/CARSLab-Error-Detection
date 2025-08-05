@@ -34,10 +34,15 @@ Level (byte), Error Name (string), Description (string)
 
 
 0 -- Debug
+
 1 -- Info
+
 2 -- Warning
+
 3 -- Error
+
 4 -- Fatal
+
 
 All the ideal values and thresholds can be changed in the code to fit the specifications of any LiDAR sensor. I did my best to comment anything that's potentially confusing, which should make modification easier.
 
@@ -45,6 +50,7 @@ The QOS settings are the standard ones for sensors. The most important setting t
 
 # Guide for running the node and editing the node:
 WINDOWS:
+
 Prerequisites:
 
   Visual Studio Code
@@ -54,6 +60,7 @@ Prerequisites:
    Recommended extensions: CMake Tools, Pylance, Python
     
   Docker Desktop
+
 
 1. Download the src folder and all its contents, and put it in your own folder on your PC. Alternatively, download the zip and extract it.
 2. Download the Dockerfile and devcontainer.json files and put them in a folder named ".devcontainer" on the same level as the src folder.
@@ -68,15 +75,16 @@ Prerequisites:
 
 
 LINUX:
+
 Prerequisites:
+
    Good luck, I don't understand Linux. Probably you need Ubuntu and ROS2 or something :)
 
 
 
 Anyway, once you've got the terminal up:
 
-Navigate to the top level (something like workspace/ros2_ws/) and do "colcon build"
-At this point, you can start running code! Below are some helpful commands for debugging or modifying:
+Navigate to the top level (something like workspace/ros2_ws/) and do "colcon build". At this point, you can start running code! Below are some helpful commands for debugging or modifying:
 
       colcon build (from top level)
       ros2 run lidar_error_checker pointcloud_checker
@@ -85,4 +93,33 @@ At this point, you can start running code! Below are some helpful commands for d
       ls (to list all directories in the folder you're in)
       ros2 topic echo /lidar_logs
       ros2 topic hz /pointcloud
-Don't forget to   source /opt/ros/humble/setup.bash
+Don't forget to     source /opt/ros/humble/setup.bash
+
+
+
+
+# Other Information
+
+Q: How do I change the format of the custom message type? For example, I want the message to include a timestamp and a frame number!
+
+A: Navigate to the lidar_interfaces package, and open LidarAlert.msg. There are comments detailing how to add or subtract data. Then, change the messaging in the main python files to accomodate the new data.
+<br> </br>
+Q: How do I change the name of the topic that these nodes publish to?
+
+A: Navigate to the " self.publisher = self.create_publisher(LidarAlert, 'lidar_logs', 10) " lines in both nodes and change " lidar_logs " to your desired name.
+<br> </br>
+Q: How do I change the topic that these nodes subscribe to?
+
+A: Navigate to the "self.subscription = self.create_subscription( PointCloud2, '/pointcloud'. self.listener_callback, qos_rofile_sensor_data ) " line and change " '/pointcloud' " to your desired name.
+<br> </br>
+Q: How much wood could a woodchuck chuck if a woodchuck could chuck wood?
+
+A: A woodchuck would chuck as much wood as a woodchuck could chuck if a woodchuck could chuck wood.
+<br> </br>
+Q: I want to make another node that does new analyses! How can I do that?
+
+A: The way I did it was to copy one of the existing nodes into a new file (in the same directory), change all references to the node name to what you want, then add the entry to the setup.py file. There are comments everywhere detailing what needs to be changed.
+<br> </br>
+Q: How can I contact you for questions?
+
+A: Open an issue here and I'll try to get to it! 
