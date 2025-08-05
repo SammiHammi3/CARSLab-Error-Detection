@@ -6,14 +6,12 @@
 
 import rclpy
 from rclpy.node import Node                     # use this to tell ROS2 that this is a ROS2 node
-import sys
 from rclpy.qos import qos_profile_sensor_data
 import hashlib                                  # used to compare messages to previous messages
 
 from lidar_interfaces.msg import LidarAlert     # From [the name of the package] import [the name of the message type]
 from sensor_msgs.msg import PointCloud2         # needed for interpreting the pointcloud messages
 
-sys.stdout.reconfigure(line_buffering=True)
 
 
 # ideal values for the pointcloud / parameters for the pointcloud
@@ -50,7 +48,8 @@ class LidarBreadthSearch(Node):
 
     def listener_callback(self, msg):
         self.check_data(msg)
-        pass
+
+    # Sample message: self.publisher.publish(LidarAlert(level=b"0", error_name="Example Message", description="This is a sample error message." ))
 
     def check_data(self, msg):
 
@@ -133,7 +132,6 @@ class LidarBreadthSearch(Node):
             description=f"Received {num_points} points, above expected maximum of {max_points}"
             ))
         
-        return
 
     
 def main(args=None):
