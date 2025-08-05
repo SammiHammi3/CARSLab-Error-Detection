@@ -21,15 +21,15 @@ percent_exceptional_point_count_allowed = 0.01  # what portion of points can be 
 
 
 
-class MessageSearcher(Node):
+class MessageSearcher(Node):        # This is the name of the class of node!
     def __init__(self):
-        super().__init__('message_searcher')
+        super().__init__('message_searcher')    # This is the name of the node!
         
         self.subscription = self.create_subscription(
-            PointCloud2,
-            '/pointcloud',
+            PointCloud2,                        # This is the type of message we are subscribing to
+            '/pointcloud',                      # This is the name of the topic to subscribe to
             self.listener_callback,
-            qos_profile_sensor_data
+            qos_profile_sensor_data             # This is the QoS profile for the subscription, which is set to sensor data
 )
         self.subscription  
         self.publisher = self.create_publisher(LidarAlert, 'lidar_logs', 10)     # Message Type, name of topic to send to, queue depth
@@ -38,6 +38,12 @@ class MessageSearcher(Node):
         self.check_data(msg)
         pass
 
+# Sample message:
+# self.publisher.publish(LidarAlert(
+#     level=b"2",
+#     error_name="Sample Error",
+#     description="This is a sample error message."
+# ))
 
     def check_data(self, msg):
         global message_counter
@@ -84,7 +90,7 @@ class MessageSearcher(Node):
 def main(args=None):
     print("Starting MessageSearcher Node")
     rclpy.init(args=args)
-    node = MessageSearcher()
+    node = MessageSearcher()            # This should match the class name earlier
 
     print("Node initialized, spinning now.")
     rclpy.spin(node)
