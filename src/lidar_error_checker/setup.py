@@ -19,9 +19,9 @@ setup(
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [        # Format: '<name of node> = <package>.<name of node>:main'
-            'pointcloud_checker = lidar_error_checker.pointcloud_checker:main',
-            'message_searcher = lidar_error_checker.message_searcher:main',
+        'console_scripts': [        # Format: '<name of node> = <package>.<name of file>:main'
+            'lidar_breadth_search = lidar_error_checker.lidar_breadth_search:main',
+            'lidar_depth_search= lidar_error_checker.lidar_depth_search:main',
         ],
     },
 )
