@@ -12,10 +12,10 @@ This project, overseen by the University of Delaware's CARLab, involves detectin
 1. Deviations from the ideal frequency of the sensor
 2. Dropped messages
 3. Empty pointclouds
-4. Identical messages
-5. NaNs and Infs
-6. A large quantity of point values greater than the reported maximum range
-7. Too many or too few points per message
+4. Too many or too few points per message
+5. Identical messages
+6. NaNs and Infs
+7. A large quantity of point values greater than the reported maximum range
 
 * Issues 6 and 7 are done in a separate node, so that they don't throttle the other fault detections. I did some in-person testing and found that if they are in the same node, the node missed 7 in 10 messages, so I have separated the intense stuff from the less-intense stuff.
 
