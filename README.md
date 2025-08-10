@@ -93,7 +93,7 @@ Navigate to the top level (something like workspace/ros2_ws/) and do "colcon bui
       ls (to list all directories in the folder you're in)
       ros2 topic echo /lidar_logs
       ros2 topic hz /pointcloud
-Don't forget to     source /opt/ros/humble/setup.bash
+Don't forget to     "source /opt/ros/humble/setup.bash" and "source install/setup.bash"
 
 
 
