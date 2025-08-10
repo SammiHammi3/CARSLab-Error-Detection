@@ -17,20 +17,18 @@ This project, overseen by the University of Delaware's CARLab, involves detectin
 6. NaNs and Infs
 7. A large quantity of point values greater than the reported maximum range
 
-* Issues 6 and 7 are done in a separate node, so that they don't throttle the other fault detections. I did some in-person testing and found that if they are in the same node, the node missed 7 in 10 messages, so I have separated the intense stuff from the less-intense stuff.
+* Issues 6 and 7 are done in a separate node, so that they don't throttle the other fault detections. I did some in-person testing and found that if they are in the same node, the node missed 7 in 10 messages, so I have separated the intense stuff from the less-intense stuff. After this separation, I found that running both fault detection nodes at the same time worked well, and no drop in performance was noticed.
 
 
 # Technical Stuff:
 
-This repository is made for Robot Operating System 2 (ROS2), Humble distro. There are two custom nodes -- one for the less-intensive searches, and one for the more-intensive searches. The nodes are called "pointcloud_checker" and "message_searcher" respectively. "pointcloud_checker" does a fault detection on every message, while "message_searcher" checks every 20 messages (the things it searches for are unlikely to change between messages, so it can save processing power by not checking every one of them).
+This repository is made for Robot Operating System 2 (ROS2), Humble distro. There are two custom nodes -- one for the less-intensive searches, and one for the more-intensive searches. The nodes are called "lidar_breadth_search" and "lidar_depth_search" respectively. "lidar_breadth_search" does a fault detection on every message, while "lidar_depth_search" checks every 20 messages (the things it searches for are unlikely to change between messages, so it can save processing power by not checking every one of them). The alerts go to the topics "/lidar_breadth_logs" and "/lidar_depth_logs".
 
-There are two packages in this repository: the listener and analysis package named "lidar_error_checker", and the package that creates a custom interface (message) type for the LiDAR error logging named "lidar_interfaces".
+There are two packages in this repository: the listener/analysis package named "lidar_error_checker", and the package that creates a custom interface (message) type for the LiDAR error logging named "lidar_interfaces".
 
-After detecting an issue, it sends an alert through the topic /lidar_logs in the following format:
+After detecting an issue, the node sends an alert through its respective logging topic in the following format:
 
-Level (byte), Error Name (string), Description (string)
-
-"Level" refers to the severity of the error.
+Level (byte), Error Name (string), Description (string).    ("Level" refers to the severity of the error).
 
 
 0 -- Debug
@@ -61,6 +59,7 @@ Prerequisites:
     
   Docker Desktop
 
+Instructions:
 
 1. Download the src folder and all its contents, and put it in your own folder on your PC. Alternatively, download the zip and extract it.
 2. Download the Dockerfile and devcontainer.json files and put them in a folder named ".devcontainer" on the same level as the src folder.
@@ -79,8 +78,7 @@ LINUX:
 Prerequisites:
 
    Good luck, I don't understand Linux. Probably you need Ubuntu and ROS2 or something :)
-
-
+<br> </br>
 
 Anyway, once you've got the terminal up:
 
@@ -97,7 +95,6 @@ Don't forget to     "source /opt/ros/humble/setup.bash" and "source install/setu
 
 
 
-
 # Other Information
 
 Q: How do I change the format of the custom message type? For example, I want the message to include a timestamp and a frame number!
@@ -106,7 +103,7 @@ A: Navigate to the lidar_interfaces package, and open LidarAlert.msg. There are 
 <br> </br>
 Q: How do I change the name of the topic that these nodes publish to?
 
-A: Navigate to the " self.publisher = self.create_publisher(LidarAlert, 'lidar_logs', 10) " lines in both nodes and change " lidar_logs " to your desired name.
+A: Navigate to the " self.publisher = self.create_publisher(LidarAlert, 'lidar_depth/breadth_logs', 10) " lines in both nodes and change " lidar_logs " to your desired name.
 <br> </br>
 Q: How do I change the topic that these nodes subscribe to?
 
